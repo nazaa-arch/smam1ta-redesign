@@ -1,0 +1,16 @@
+{
+  "@context": "http://www.w3.org/ns/odrl.jsonld",
+  "@type": "Offer",
+  "uid": "https://display2.steamcraft.online/legal/tdm-policy.json",
+  "profile": "http://www.w3.org/ns/tdmrep/",
+  "assigner": {
+    "uid": "https://display2.steamcraft.online/",
+    "vcard:fn": "Muhammad Naza Firmansyah (Steamcraft)"
+  },
+  "prohibition": [
+    {
+      "action": "tdm:mine",
+      "target": "https://display2.steamcraft.online/*"
+    }
+  ]
+}
