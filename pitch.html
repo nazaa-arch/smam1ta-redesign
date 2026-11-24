@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Proposal Redesign Website — SMA Muhammadiyah 1 Taman (SMAM1TA)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .pitch-hero {
+      background: linear-gradient(135deg, #061A33 0%, #0B2D52 60%, #0D4B6E 100%);
+      color: #FFFFFF;
+      padding: 64px 0 72px;
+    }
+    .pitch-hero h1 { color: #FFFFFF; font-size: clamp(2rem, 3.6vw, 3rem); margin-bottom: 16px; }
+    .pitch-hero h1 em { font-style: italic; padding-right: 0.16em; color: var(--lime-400); }
+    .pitch-hero p { color: #CBD5E1; font-size: 1.05rem; max-width: 720px; }
+    .audit-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+    .audit-card {
+      background: #FFFFFF;
+      border: 1px solid var(--border-subtle);
+      border-left: 4px solid #DC2626;
+      border-radius: var(--radius-md);
+      padding: 22px 24px;
+      box-shadow: var(--shadow-xs);
+    }
+    .audit-card--warn { border-left-color: #EA580C; }
+    .audit-card__tag {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 4px 10px;
+      border-radius: var(--radius-pill);
+      background: #FEF2F2;
+      color: #B91C1C;
+      margin-bottom: 10px;
+    }
+    .audit-card--warn .audit-card__tag { background: #FFF7ED; color: #C2410C; }
+    .audit-card h3 { font-size: 1.05rem; margin-bottom: 6px; }
+    .audit-card p { font-size: 0.9rem; color: var(--ink-500); }
+    .compare-table-wrap {
+      overflow-x: auto;
+      background: #FFFFFF;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm);
+    }
+    .compare-table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 680px;
+    }
+    .compare-table th, .compare-table td {
+      text-align: left;
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border-subtle);
+      font-size: 0.92rem;
+    }
+    .compare-table th {
+      background: var(--navy-900);
+      color: #FFFFFF;
+      font-family: var(--font-display);
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .compare-table tr:last-child td { border-bottom: none; }
+    .bad { color: #B91C1C; font-weight: 500; }
+    .good { color: #047857; font-weight: 600; }
+    .roadmap-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+    }
+    .roadmap-step {
+      background: #FFFFFF;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+    }
+    .roadmap-step__num {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 0.8rem;
+      color: var(--emerald-700);
+      background: var(--emerald-50);
+      display: inline-block;
+      padding: 5px 12px;
+      border-radius: var(--radius-pill);
+      margin-bottom: 12px;
+    }
+    .pkg-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+    .pkg-card {
+      background: #FFFFFF;
+      border: 1.5px solid var(--border-subtle);
+      border-radius: var(--radius-xl);
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .pkg-card--featured {
+      border-color: var(--navy-900);
+      box-shadow: var(--shadow-lg);
+      position: relative;
+    }
+    .pkg-price {
+      font-family: var(--font-display);
+      font-size: 1.45rem;
+      font-weight: 800;
+      color: var(--navy-900);
+      line-height: 1.2;
+    }
+    .pkg-price-note {
+      display: block;
+      font-family: var(--font-body);
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--emerald-700);
+      margin-top: 4px;
+    }
+    .pkg-footnote {
+      margin-top: 24px;
+      text-align: center;
+      font-size: 0.9rem;
+      color: var(--ink-500);
+      background: #FFFFFF;
+      border: 1px dashed var(--border-strong);
+      border-radius: var(--radius-md);
+      padding: 14px 20px;
+    }
+    @media (max-width: 960px) {
+      .audit-grid, .roadmap-grid, .pkg-grid { grid-template-columns: 1fr; }
+    }
+    @media print {
+      .no-print { display: none !important; }
+      body { background: #FFFFFF; }
+      .section { padding: 36px 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Pitch Top Bar -->
+  <header class="header no-print">
+    <div class="container header__inner">
+      <a href="index.html" class="brand">
+        <div class="brand__emblem">S1T</div>
+        <div class="brand__text-wrap">
+          <span class="brand__name">Proposal Redesign Website</span>
+          <span class="brand__sub">SMA Muhammadiyah 1 Taman</span>
+        </div>
+      </a>
+      <div class="header__actions">
+        <a href="index.html" class="btn btn--outline btn--sm">← Kembali ke Demo Website</a>
+        <button type="button" onclick="window.print()" class="btn btn--primary btn--sm">🖨 Cetak / Simpan PDF</button>
+      </div>
+    </div>
+  </header>
+
+  <section class="pitch-hero">
+    <div class="container">
+      <span class="hero__pill" style="margin-bottom:18px;">Executive Pitch Deck • Audit UI/UX &amp; Redesign</span>
+      <h1>Transformasi Digital Website <em>smam1ta.sch.id</em> untuk Meningkatkan Citra &amp; Konversi SPMB 2026/2027</h1>
+      <p>
+        Disusun khusus untuk Pimpinan, Humas, dan Panitia SPMB <strong>SMA Muhammadiyah 1 Taman</strong>. Berdasarkan audit langsung terhadap website saat ini, berikut temuan kritis yang berdampak pada kepercayaan orang tua calon siswa serta solusi redesign modern yang siap diimplementasikan.
+      </p>
+      <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top:28px;" class="no-print">
+        <a href="index.html" class="btn btn--primary">Lihat Demo Interaktif Website Baru →</a>
+        <a href="#temuan" class="btn btn--glass">Pelajari 8 Temuan Audit</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8 Temuan Audit Nyata -->
+  <section class="section section--ivory" id="temuan">
+    <div class="container">
+      <div class="section-header">
+        <span class="eyebrow eyebrow--amber">Hasil Audit Website Saat Ini</span>
+        <h2 class="section-title">8 Temuan Kritis pada <code>smam1ta.sch.id</code> yang Menghambat Konversi SPMB</h2>
+        <p class="section-desc">Semua poin di bawah ditemukan langsung dari halaman publik <strong>smam1ta.sch.id</strong> dan dapat langsung diperbaiki melalui redesign ini.</p>
+      </div>
+
+      <div class="audit-grid">
+        <article class="audit-card">
+          <span class="audit-card__tag">Kritis • Link Rusak (404)</span>
+          <h3>1. Tautan PPDB di Footer Error 404 &amp; Link Demo Plugin di Tabel Biaya</h3>
+          <p>Menu <strong>PPDB</strong> di footer mengarah ke <code>/ppdb-sekolah/</code> (404 Not Found). Pada halaman <code>/spmb/</code>, angka <code>Rp. 10.000.000</code> masih tertaut ke situs demo plugin <code>royal-elementor-addons.com</code>.</p>
+        </article>
+
+        <article class="audit-card">
+          <span class="audit-card__tag">Kritis • Kecepatan &amp; Performa</span>
+          <h3>2. Waktu Muat Lambat (10–60 Detik) Akibat Beban Elementor</h3>
+          <p>Halaman depan memuat 30+ file CSS LiteSpeed, widget Elementor berat, foto resolusi mentah WhatsApp, serta embed YouTube langsung yang membekukan browser pengunjung—terutama di HP orang tua.</p>
+        </article>
+
+        <article class="audit-card">
+          <span class="audit-card__tag">Kritis • Konversi Hero</span>
+          <h3>3. Teks "Home" Besar &amp; Hero Tanpa Tombol Daftar SPMB</h3>
+          <p>Bagian paling atas menampilkan judul <code>&lt;h1&gt;Home&lt;/h1&gt;</code> yang tidak perlu. Banner utama berupa gambar PNG datar tanpa headline HTML (buruk untuk SEO Google) dan tanpa tombol CTA <em>Daftar SPMB</em> di atas lipatan layar.</p>
+        </article>
+
+        <article class="audit-card audit-card--warn">
+          <span class="audit-card__tag">Tinggi • Responsif &amp; Navigasi</span>
+          <h3>4. Layout Terpotong di Laptop 1280px &amp; Tombol Chat Hilang di Tablet</h3>
+          <p>Menu <code>MySmamita</code> turun baris di layar 1280px, teks terpotong di tepi kanan, tombol <strong>Chat WA</strong> disembunyikan di tablet (<code>elementor-hidden-tablet</code>), dan submenu level-3 <em>Manajemen</em> tidak tampil secara visual.</p>
+        </article>
+
+        <article class="audit-card audit-card--warn">
+          <span class="audit-card__tag">Tinggi • Kredibilitas Brand</span>
+          <h3>5. Palet Warna Saling Bertabrakan &amp; Typo Editorial</h3>
+          <p>Header hijau stabilo, tabel SPMB ungu terang, footer persik (peach), dan label merah menurunkan kesan sekolah elit. Ditemukan pula typo seperti <em>"periode 2025–2015"</em> pada profil Prof. Din Syamsuddin serta <em>"Mugammadiyah"</em>.</p>
+        </article>
+
+        <article class="audit-card audit-card--warn">
+          <span class="audit-card__tag">Tinggi • Konten Kosong</span>
+          <h3>6. Halaman Ekstrakurikuler Kosong &amp; Menu Footer Tidak Bisa Diklik</h3>
+          <p>Halaman <code>/ekstrakurikuler/</code> dan <code>/manajemen/</code> kosong, paragraf <code>/kesiswaan/</code> terduplikasi ganda, serta menu footer (<em>Rapor, SKL, Unduh, Acara</em>) dan ikon media sosial tidak memiliki tautan aktif.</p>
+        </article>
+
+        <article class="audit-card audit-card--warn">
+          <span class="audit-card__tag">Menengah • UX Orang Tua</span>
+          <h3>7. Tidak Ada Peta Google Maps &amp; Tidak Ada Simulasi Biaya</h3>
+          <p>Halaman <code>/contact/</code> belum menyertakan peta lokasi interaktif menuju Jl. Raya Ketegan No. 35. Orang tua juga harus membaca tabel statis tanpa panduan perbandingan jalur Excellent, M-ICO, dan Tahfidz.</p>
+        </article>
+
+        <article class="audit-card audit-card--warn">
+          <span class="audit-card__tag">Menengah • Berita &amp; Trust</span>
+          <h3>8. Kartu Berita Tanpa Thumbnail &amp; Minim Bukti Angka</h3>
+          <p>Berita di beranda tampil tanpa foto sampul dan meninggalkan 1 kartu ganjil. Belum tersedia ringkasan angka kepercayaan (58+ tahun berdiri, 54 guru S1/S2, 16+ mitra universitas global) di halaman depan.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tabel Before vs After -->
+  <section class="section section--white" id="perbandingan">
+    <div class="container">
+      <div class="section-header">
+        <span class="eyebrow">Nilai Tambah Redesign</span>
+        <h2 class="section-title">Perbandingan Before vs After</h2>
+      </div>
+
+      <div class="compare-table-wrap">
+        <table class="compare-table">
+          <thead>
+            <tr>
+              <th>Aspek Evaluasi</th>
+              <th>Website Saat Ini (Before)</th>
+              <th>Konsep Redesign Baru (After)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Kecepatan Akses</strong></td>
+              <td class="bad">10–60 detik, berat di perangkat mobile</td>
+              <td class="good">&lt; 1 detik, ringan &amp; lazy-load YouTube</td>
+            </tr>
+            <tr>
+              <td><strong>Konversi SPMB</strong></td>
+              <td class="bad">Banner pasif, link PPDB footer 404, tabel statis ber-link demo</td>
+              <td class="good">CTA SPMB strategis + Simulasi Biaya Interaktif + WA otomatis per kelas</td>
+            </tr>
+            <tr>
+              <td><strong>Identitas Visual</strong></td>
+              <td class="bad">Campuran hijau stabilo, ungu, peach, merah kurang konsisten</td>
+              <td class="good">Navy Muhammadiyah + Emerald &amp; Warm Amber berkelas internasional</td>
+            </tr>
+            <tr>
+              <td><strong>Navigasi &amp; Mobile UX</strong></td>
+              <td class="bad">Header pecah di 1280px, tombol Chat hilang di tablet, submenu buntu</td>
+              <td class="good">Single-row Mega Menu rapi + Mobile Drawer lengkap dengan tombol daftar</td>
+            </tr>
+            <tr>
+              <td><strong>SEO &amp; Kredibilitas</strong></td>
+              <td class="bad">H1 "Home", teks terjebak di gambar, tanpa Google Maps, ada typo</td>
+              <td class="good">Struktur HTML semantik, Google Maps interaktif, copy bersih &amp; bilingual</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Roadmap & Paket Penawaran (Editable by User) -->
+  <section class="section section--ivory" id="roadmap">
+    <div class="container">
+      <div class="section-header section-header--center">
+        <span class="eyebrow">Rencana Implementasi</span>
+        <h2 class="section-title">Roadmap Pengerjaan 4 Minggu</h2>
+        <p class="section-desc">Proses transisi mulus tanpa mematikan domain <code>smam1ta.sch.id</code> maupun portal <code>registration.smam1ta.sch.id</code> dan <code>my.smam1ta.sch.id</code>.</p>
+      </div>
+
+      <div class="roadmap-grid" style="margin-bottom:64px;">
+        <div class="roadmap-step">
+          <span class="roadmap-step__num">Minggu 1</span>
+          <h3 style="font-size:1.05rem; margin-bottom:6px;">Finalisasi Desain &amp; Konten</h3>
+          <p style="font-size:0.88rem; color:var(--ink-500);">Persetujuan tampilan bersama Kepala Sekolah &amp; Humas, pengumpulan foto terbaru, akreditasi, dan struktur berita.</p>
+        </div>
+        <div class="roadmap-step">
+          <span class="roadmap-step__num">Minggu 2</span>
+          <h3 style="font-size:1.05rem; margin-bottom:6px;">Development &amp; CMS</h3>
+          <p style="font-size:0.88rem; color:var(--ink-500);">Implementasi tampilan baru yang super cepat + integrasi CMS ramah admin agar tim Humas mudah posting berita &amp; prestasi.</p>
+        </div>
+        <div class="roadmap-step">
+          <span class="roadmap-step__num">Minggu 3</span>
+          <h3 style="font-size:1.05rem; margin-bottom:6px;">Integrasi SPMB &amp; SEO</h3>
+          <p style="font-size:0.88rem; color:var(--ink-500);">Pengujian kalkulator biaya, tautan WhatsApp, bilingual ID/EN, Google Maps, serta migrasi aman artikel lama agar ranking Google terjaga.</p>
+        </div>
+        <div class="roadmap-step">
+          <span class="roadmap-step__num">Minggu 4</span>
+          <h3 style="font-size:1.05rem; margin-bottom:6px;">Go-Live &amp; Pelatihan Admin</h3>
+          <p style="font-size:0.88rem; color:var(--ink-500);">Peluncuran resmi ke <code>smam1ta.sch.id</code>, audit kecepatan Core Web Vitals, serta pelatihan singkat &amp; garansi maintenance.</p>
+        </div>
+      </div>
+
+      <div class="section-header section-header--center">
+        <span class="eyebrow eyebrow--amber">Opsi Paket Kerja Sama</span>
+        <h2 class="section-title">Pilihan Lingkup &amp; Estimasi Investasi</h2>
+        <p class="section-desc">Estimasi bersifat fleksibel dan dapat disesuaikan dengan prioritas fitur serta kebutuhan sekolah melalui diskusi bersama.</p>
+      </div>
+
+      <div class="pkg-grid">
+        <div class="pkg-card">
+          <span style="font-size:0.78rem; font-weight:700; color:var(--ink-500); text-transform:uppercase;">Paket A • Revitalisasi</span>
+          <h3>Redesign Profil &amp; SPMB</h3>
+          <div class="pkg-price">
+            Mulai Rp 500 rb
+            <span class="pkg-price-note">Fleksibel &amp; dapat didiskusikan</span>
+          </div>
+          <ul class="check-list" style="margin-bottom:0;">
+            <li><span class="check-icon">✓</span><span>Redesign total beranda &amp; halaman utama</span></li>
+            <li><span class="check-icon">✓</span><span>Kalkulator biaya SPMB &amp; tombol WA otomatis</span></li>
+            <li><span class="check-icon">✓</span><span>Perbaikan seluruh link 404 &amp; peta lokasi</span></li>
+            <li><span class="check-icon">✓</span><span>Optimasi mobile &amp; kecepatan loading</span></li>
+          </ul>
+        </div>
+
+        <div class="pkg-card pkg-card--featured">
+          <span style="font-size:0.78rem; font-weight:700; color:var(--emerald-700); text-transform:uppercase;">Paket B • Rekomendasi Utama</span>
+          <h3>Full School Digital Ecosystem</h3>
+          <div class="pkg-price">
+            Mulai Rp 1,5 Jt
+            <span class="pkg-price-note">Fleksibel &amp; dapat didiskusikan</span>
+          </div>
+          <ul class="check-list" style="margin-bottom:0;">
+            <li><span class="check-icon">✓</span><span>Seluruh fitur Paket A + CMS Berita &amp; Prestasi</span></li>
+            <li><span class="check-icon">✓</span><span>Versi Bilingual penuh (Indonesia &amp; English)</span></li>
+            <li><span class="check-icon">✓</span><span>Halaman Profil Guru, Ekstrakurikuler &amp; Kemitraan</span></li>
+            <li><span class="check-icon">✓</span><span>SEO On-Page + Google Analytics &amp; Training Admin</span></li>
+            <li><span class="check-icon">✓</span><span>Garansi maintenance &amp; backup 2–3 bulan</span></li>
+          </ul>
+        </div>
+
+        <div class="pkg-card">
+          <span style="font-size:0.78rem; font-weight:700; color:var(--ink-500); text-transform:uppercase;">Paket C • Kemitraan Tahunan</span>
+          <h3>Digital Growth &amp; Care</h3>
+          <div class="pkg-price">
+            Disesuaikan via Diskusi
+            <span class="pkg-price-note">Mulai Rp 2,5 Jt / tahun (atau maintenance bulanan)</span>
+          </div>
+          <ul class="check-list" style="margin-bottom:0;">
+            <li><span class="check-icon">✓</span><span>Seluruh fitur Paket B</span></li>
+            <li><span class="check-icon">✓</span><span>Landing page khusus kampanye SPMB tiap gelombang</span></li>
+            <li><span class="check-icon">✓</span><span>Pemeliharaan keamanan, update rutin &amp; laporan trafik</span></li>
+            <li><span class="check-icon">✓</span><span>Dukungan prioritas untuk tim Humas &amp; IT Sekolah</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <p class="pkg-footnote">
+        💡 <strong>Catatan:</strong> Website dapat menggunakan domain &amp; hosting <code>smam1ta.sch.id</code> yang sudah ada. Detail fitur, jadwal pengerjaan, dan skema pembayaran terbuka untuk didiskusikan bersama pihak sekolah.
+      </p>
+
+      <div style="text-align:center; margin-top:42px;" class="no-print">
+        <a href="index.html" class="btn btn--navy">Buka Kembali Demo Interaktif SMAM1TA →</a>
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>
